@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TwinFire : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         
@@ -16,3 +15,5 @@ public class TwinFire : MonoBehaviour
         
     }
 }
+
+

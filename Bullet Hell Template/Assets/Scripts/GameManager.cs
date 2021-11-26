@@ -10,18 +10,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
-    }
+        if (_instance != null && _instance != this) Destroy(gameObject);
 
-    private void Start()
-    {
+        else _instance = this;
+
+
         EventManager.Subscribe(EventType.FetchData, FetchData);
         EventManager.Subscribe(EventType.LoadData, LoadData);
         EventManager.Subscribe(EventType.SaveData, SaveData);

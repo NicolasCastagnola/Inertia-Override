@@ -37,7 +37,7 @@ public class BossPatterns : PatternSpawner
                                             .SetBehaviour(BulletBeahaviour.None)
                                             .SetInitialRotationInDegrees(Random.Range(0, 5))
                                             .SetAngleMultiplier((Random.Range(0, 10)))
-                                            .SetProjectileQuantity(Random.Range(10, 50))
+                                            .SetProjectileQuantity(Random.Range(2, 50))
                                             .SetProjectileSpeed(Random.Range(2,3))
                                             .SetSize(Random.Range(3, 5));
                                      

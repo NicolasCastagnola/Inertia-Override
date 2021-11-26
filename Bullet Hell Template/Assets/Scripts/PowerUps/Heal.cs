@@ -11,9 +11,9 @@ public class Heal : MonoBehaviour, IConsumable<int, IHealeable<int>>
         type.OnHeal(arg);
     }
     
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider other)
     {
-        IHealeable<int> healable = collision.GetComponent<IHealeable<int>>();
+        var healable = other.GetComponent<IHealeable<int>>();
 
         if (healable != null)
         {

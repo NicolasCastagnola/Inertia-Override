@@ -38,9 +38,14 @@ public class PlayerController : BaseEntityController<int>
             Inputs();
         }
     }
+
+    public void ChangeCurrentWeapon(Weapon w)
+    {
+        _model.currentSelectedWeapon = w;
+    }
     public override void OnAwake()
     {
-        //throw new System.NotImplementedException();
+        _model.currentSelectedWeapon = new NormalFire(_model.Middle);
     }
 
     public override void OnEnable()

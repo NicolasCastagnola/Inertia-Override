@@ -19,6 +19,7 @@ public interface IModel<T> { void TakeHeal(T amount); void TakeDamage(T amount);
 public interface IConsumable<P,T> { void OnConsume(P param, T type); }
 public interface IDamagable<T> { void OnDamage(T amount);}
 public interface IHealeable<T> { void OnHeal(T amount);}
+public interface IWeapon { void Shoot(Bullet b); void ChangeWeapon(); }
 public interface IPattern { void Pattern();}
 public interface IPoolable<T> { void TurnOn(T type); void TurnOff(T type); void ReturnToPool(); void OnReset(); }
 public interface IState { void OnEnter(); void OnUpdate(); void OnExit(); }

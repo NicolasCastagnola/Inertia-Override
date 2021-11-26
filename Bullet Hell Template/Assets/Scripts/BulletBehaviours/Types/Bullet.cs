@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class Bullet : Prototype, IPoolable<Bullet>
 {
     [SerializeField] private Sprite[] sprites;
+    [SerializeField] protected int damageToUnits;
 
     [HideInInspector] public float direction;
     [HideInInspector] private float _speed = 5;
@@ -28,6 +29,11 @@ public abstract class Bullet : Prototype, IPoolable<Bullet>
     #region BUILDERS
     public override Prototype Clone()
     {
+        return this;
+    }
+    public Bullet SetDamage(int amount)
+    {
+        damageToUnits = amount;
         return this;
     }
     public Bullet SetColor(Color color)

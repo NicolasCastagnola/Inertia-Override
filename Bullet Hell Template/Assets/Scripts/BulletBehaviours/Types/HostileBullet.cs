@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class HostileBullet : Bullet
 {
-    [SerializeField] private int damageToHostileUnits;
-
     private void Awake()
     {
         boundsMaskLayer = LayerMask.NameToLayer("Bounds");
@@ -39,7 +37,7 @@ public class HostileBullet : Bullet
 
         if (entity != null)
         {
-            entity.TakeDamage(damageToHostileUnits);
+            entity.TakeDamage(damageToUnits);
             ReturnToPool();
         }
         if (other.gameObject.layer == boundsMaskLayer)

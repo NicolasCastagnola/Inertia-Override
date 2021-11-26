@@ -14,6 +14,7 @@ public class Player : AlliedEntity
     public float fireRate;
 
     public Transform middle, left, right;
+    public Weapon currentWeapon;
 
     public Image[] lives;
 
@@ -23,8 +24,7 @@ public class Player : AlliedEntity
 
         Flyweight Player = FlyweightPointer.Player;
 
-        _model = new PlayerModel(Player.minHealth, Player.maxHealth, Player.maxSpeed, Player.defaultSpeed, fireRate, transform, CanShoot, IsDead, spawner, this, middle, left, right);
-
+        _model = new PlayerModel(Player.minHealth, Player.maxHealth, Player.maxSpeed, Player.defaultSpeed, fireRate, transform, CanShoot, IsDead, spawner, middle, left, right, currentWeapon);
         _controller = new PlayerController(_model);
         _view = new PlayerView(_animator, lives);
 
@@ -40,6 +40,8 @@ public class Player : AlliedEntity
     private void OnEnable()
     {
         _controller.OnEnable();
+
+
     }
     private void Start()
     {
@@ -48,10 +50,25 @@ public class Player : AlliedEntity
     private void Update()
     {
         _controller.OnUpdate();
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            currentWeapon = new EnhancedFire(currentWeapon, 10f);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            currentWeapon = currentWeapon.CancelDecorator();
+        }
     }
     public override void TakeDamage(int amount)
     {
         _controller.OnDamage(amount);
+    }
+
+    public void ChangeCurrentPlayerWeapon(Weapon weapon)
+    {
+        _controller.ChangeCurrentWeapon(weapon);
     }
 
     public override void TakeHeal(int amount) 

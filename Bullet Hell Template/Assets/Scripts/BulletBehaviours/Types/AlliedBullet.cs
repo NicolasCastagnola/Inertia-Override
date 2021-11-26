@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AlliedBullet : Bullet
 {
-    [SerializeField] private int damageToHostileUnits;
-
     private void Awake()
     {
         boundsMaskLayer = LayerMask.NameToLayer("Bounds");
@@ -16,7 +14,6 @@ public class AlliedBullet : Bullet
     }
     public override void OnReset()
     {
-        //do on reset
     }
 
     public override void ReturnToPool()
@@ -41,7 +38,7 @@ public class AlliedBullet : Bullet
 
         if (entity!=null)
         {
-            entity.TakeDamage(damageToHostileUnits);
+            entity.TakeDamage(damageToUnits);
             ReturnToPool();
         }
         if (other.gameObject.layer == boundsMaskLayer)

@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7555297080785623283}
   - component: {fileID: 7555297080785623282}
+  - component: {fileID: -5815520178456516694}
   - component: {fileID: 6101130457597375998}
-  - component: {fileID: -909532204142381595}
   - component: {fileID: 9018541958370775429}
   m_Layer: 0
-  m_Name: HostileBullet
+  m_Name: AlliedBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,6 +83,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-5815520178456516694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7555297080785623281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 521f723a3cecb7041b6734a90820e020, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: fcf96b50c90fbdd41a8088ab382b2a40, type: 3}
+  - {fileID: 21300000, guid: e0183da9be094ff419804029b9c647f7, type: 3}
+  - {fileID: 21300000, guid: 8c14a8849c621f840bf337f51a51cb20, type: 3}
+  damageToUnits: 1
+  direction: 0
+  _rigidbody: {fileID: 9018541958370775429}
 --- !u!65 &6101130457597375998
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96,25 +115,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.045891702, y: 0.042059265, z: 0.049726557}
   m_Center: {x: 0.0007996311, y: -0.0035473506, z: -0.0073015816}
---- !u!114 &-909532204142381595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7555297080785623281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5000ccf723be9c4ca7a40d61cbf7c3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: fcf96b50c90fbdd41a8088ab382b2a40, type: 3}
-  - {fileID: 21300000, guid: e0183da9be094ff419804029b9c647f7, type: 3}
-  - {fileID: 21300000, guid: 8c14a8849c621f840bf337f51a51cb20, type: 3}
-  direction: 0
-  _rigidbody: {fileID: 0}
-  damageToHostileUnits: 1
 --- !u!54 &9018541958370775429
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -1,13 +1,16 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
+using System.Threading.Tasks;
+using UnityEngine;
 
 public class PlayerModel : BaseEntityModel 
 {
-    Transform _middle, _left, _right;
     //String Input Const
     public readonly string horizontal = "Horizontal";
     public readonly string vertical = "Vertical";
+
+    public Weapon currentSelectedWeapon;
+    public Transform Middle { get { return _middle; } }
+    public Transform _middle, _left, _right;
 
     //Events
     public event Action<int> OnHealthValueModified;
@@ -15,20 +18,21 @@ public class PlayerModel : BaseEntityModel
     public event Action OnHeal;
     public event Action OnDeath;
     public event Action OnShoot;
+    public event Action<Weapon> OnWeaponChanged;
 
-    public PlayerModel(int minHealth, int maxHealth, float slowedSpeed, float defaultSpeed, float fireRate ,Transform transform, bool canShoot, bool isDead, PoolManager spawner, MonoBehaviour monoBehaviour, Transform middle, Transform left, Transform right)
+    public PlayerModel(int minHealth, int maxHealth, float slowedSpeed, float defaultSpeed, float fireRate, Transform transform, bool canShoot, bool isDead, PoolManager spawner, Transform middle, Transform left, Transform right, Weapon weapon)
     {
         _minLife = minHealth;
         _maxLife = maxHealth;
         _fireRate = fireRate;
         _spawner = spawner;
-        _monoBehaviour = monoBehaviour;
         _slowedSpeed = slowedSpeed;
         _defaultSpeed = defaultSpeed;
         _transform = transform;
         _middle = middle;
         _left = left;
         _right = right;
+        currentSelectedWeapon = weapon;
         _isDead = isDead;
 
         _canShoot = canShoot;
@@ -52,9 +56,7 @@ public class PlayerModel : BaseEntityModel
             {
                 Die();
             }
-
         }
-
     }
     public override void TakeHeal(int amount)
     {
@@ -76,24 +78,29 @@ public class PlayerModel : BaseEntityModel
         Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f);
         _transform.position = Camera.main.ScreenToWorldPoint(mousePos);
     }
-    public void Shoot()
+    public async void Shoot()
     {
         if (_canShoot)
         {
-            AlliedBullet bullet = _spawner.alliedBullets.GetObject();
-
-            bullet.SetPosition(_middle.position).SetSpeed(FlyweightPointer.Player.bulletSpeed).SetDirection(_transform.up).SetColor(FlyweightPointer.Player.bulletColor);
-                   
+            currentSelectedWeapon.Shoot();
+            
             OnShoot?.Invoke();
 
-            _monoBehaviour.StartCoroutine(WaitFireRate());
+            await WaitFireRate();
         }
     }
-    private IEnumerator WaitFireRate()
+
+    public void ChangeWeapon(Weapon w)
+    {
+        currentSelectedWeapon = w;   
+    }
+    private async Task WaitFireRate()
     {
         _canShoot = false;
-        
-        yield return new WaitForSeconds(_fireRate);
+
+        var secondsToMiliseconds = _fireRate * 1000;
+
+        await Task.Delay((int)secondsToMiliseconds);
 
         _canShoot = true;
     }
