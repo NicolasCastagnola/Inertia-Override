@@ -22,7 +22,7 @@ public class Player : AlliedEntity
     {
         _animator = GetComponent<Animator>();
 
-        Flyweight Player = FlyweightPointer.Player;
+        EntityFlyweight Player = FlyweightPointer.Player;
 
         _model = new PlayerModel(Player.minHealth, Player.maxHealth, Player.maxSpeed, Player.defaultSpeed, fireRate, transform, CanShoot, IsDead, spawner, middle, left, right, currentWeapon);
         _controller = new PlayerController(_model);
@@ -54,12 +54,12 @@ public class Player : AlliedEntity
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            currentWeapon = new EnhancedFire(currentWeapon, 10f);
+            
+            var c = new NormalFire(middle);
+            var g = new EnhancedFire(c, left, right, 5f);
+            ChangeCurrentPlayerWeapon(g);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            currentWeapon = currentWeapon.CancelDecorator();
-        }
+
     }
     public override void TakeDamage(int amount)
     {
@@ -79,4 +79,5 @@ public class Player : AlliedEntity
     {
         EventManager.TriggerEvent(EventType.SaveData);
     }
+
 }

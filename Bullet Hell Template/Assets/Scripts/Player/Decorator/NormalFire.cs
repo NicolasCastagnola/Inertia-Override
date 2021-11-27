@@ -20,11 +20,16 @@ public class NormalFire : Weapon
     {
     }
 
-    public override Bullet Shoot()
+    public override void Shoot()
     {
-        g = "normal";
-        Debug.Log(g);
-        return PoolManager.Instance.alliedBullets.GetObject().SetPosition(_middle.position).SetSpeed(FlyweightPointer.Player.bulletSpeed).SetDirection(_middle.up).SetColor(FlyweightPointer.Player.bulletColor);
+        PoolManager.Instance.alliedBullets.GetObject().SetPosition(_middle.position).SetSpeed(FlyweightPointer.Player.bulletSpeed).SetDirection(_middle.up).SetColor(FlyweightPointer.Player.bulletColor);
     }
 
+
+    /*
+    public override Bullet Shoot()
+    {
+        return PoolManager.Instance.alliedBullets.GetObject().SetPosition(_middle.position).SetSpeed(FlyweightPointer.Player.bulletSpeed).SetDirection(_middle.up).SetColor(FlyweightPointer.Player.bulletColor);
+    }
+    */
 }

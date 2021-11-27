@@ -10,9 +10,9 @@ public abstract class WeaponDecorator : Weapon
         _weapon = w;
     }
 
-    public override Bullet Shoot()
+    /*public override Bullet Shoot()
     {
         return _weapon.Shoot();
-    }
+    }*/
 }
 

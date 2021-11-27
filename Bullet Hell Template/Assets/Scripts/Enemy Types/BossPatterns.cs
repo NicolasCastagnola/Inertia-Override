@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class BossPatterns : PatternSpawner
 {
-    IPattern basePattern;
+    private List<PatternFlyweight> flyweightPointers = new List<PatternFlyweight>();
+    private IPattern basePattern;
     private bool _shouldRandomizeBehaviour = true;
     private bool _shouldReproducePattern = true;
     [SerializeField] private float randomizePatternValuesTimer;
     [SerializeField] private float timerBetweenSpawns;
-    
+    public void InitializePatterns()
+    {
+        flyweightPointers.Add(NonStaticFlyweightPointers.Circle);
+        flyweightPointers.Add(NonStaticFlyweightPointers.Circle);
+    }
 
+    private void Awake()
+    {
+        InitializePatterns(); 
+    }
     private void Update()
     {
         if (_shouldRandomizeBehaviour)
@@ -24,30 +33,19 @@ public class BossPatterns : PatternSpawner
                 StartCoroutine(ReproducePattern());
             }
         }
-
     }
 
-    /// <summary>
-    /// Placeholder para que el boss pueda funcionar con su IPattern, se tiene que randomizar el IPattern desde si clase base Patternspawner
-    /// </summary>
-    /// <returns></returns>
+
     public IPattern RandomizePattern()
     {
-        IPattern pattern = new BasePattern().SetSpawnPoint(transform)
-                                            .SetBehaviour(BulletBeahaviour.None)
-                                            .SetInitialRotationInDegrees(Random.Range(0, 5))
-                                            .SetAngleMultiplier((Random.Range(0, 10)))
-                                            .SetProjectileQuantity(Random.Range(2, 50))
-                                            .SetProjectileSpeed(Random.Range(2,3))
-                                            .SetSize(Random.Range(3, 5));
+        IPattern pattern = new BasePattern(NonStaticFlyweightPointers.CircleSpiral, transform);
                                      
-        
         return pattern;
     }
 
     private IEnumerator ReproducePattern()
     {
-        basePattern.Pattern();
+        basePattern.PlayPattern();
 
         _shouldReproducePattern = false;
 

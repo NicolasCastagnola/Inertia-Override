@@ -28,7 +28,7 @@ public class Boss : Enemy
 
     private void OnEnable()
     {
-        Flyweight Boss = FlyweightPointer.Boss;
+        EntityFlyweight Boss = FlyweightPointer.Boss;
 
         InitializeEntity(animator, Boss.minHealth, Boss.maxHealth, Boss.maxSpeed, Boss.defaultSpeed);
     }

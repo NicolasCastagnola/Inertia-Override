@@ -1,61 +1,48 @@
 ﻿using System.Collections;
 using UnityEngine;
-public class BasePattern : IPattern, IPrototype
+public class BasePattern : IPattern
 {
     private const float RADIUS = 1f;   
- 
-    private Transform _unitPos;
-    private BulletBeahaviour _bulletBeahaviour;
-    private int _numberOfProjectiles = 5;            
-    private float _projectileSpeed = 1f;             
-    private int _rotatingAngle = 0;
-    private int _angleModifier = 0;
-    private float _size;
 
-    #region Builders
-    public BasePattern SetSpawnPoint(Transform unitPos)
-    {
-        _unitPos = unitPos;
+    private readonly PatternFlyweight _patternFlyweight;
+    
+    //Pattern
+    private Transform _transform;
+    private int _numberOfProjectiles;            
+    private float _projectileSpeed;             
+    private int _rotatingAngle;
+    private int _angleModifier;
+    //Bullet
+    private BulletBeahaviour _beahaviour;
+    private int _bulletSpeed;
+    private int _bulletScale;
 
-        return this;
-    }
-    public BasePattern SetProjectileQuantity(int numberOfProjectiles )
+    public BasePattern(PatternFlyweight patternFlyweight, Transform transform)
     {
-        _numberOfProjectiles = numberOfProjectiles;
-        return this;
-    }
-    public BasePattern SetProjectileSpeed(float projectileSpeed)
-    {
-        _projectileSpeed = projectileSpeed;
-        return this;
-    }
-    public BasePattern SetAngleMultiplier(int angle)
-    {
-        _angleModifier = angle;
-        return this;
-    }
-    public BasePattern SetInitialRotationInDegrees(int rotatingAngle = 0)
-    {
-        _rotatingAngle = rotatingAngle;
-        return this;
-    }
-    public BasePattern SetSize(float size)
-    {
-        _size = size;
-        return this;
-    }
-    public BasePattern SetBehaviour(BulletBeahaviour beahaviour)
-    {
-        _bulletBeahaviour = beahaviour;
-        return this;
+        _transform = transform;
+        _patternFlyweight = patternFlyweight;
+
+        InitializeRandomValues();
     }
 
-    #endregion
-    public void BasePatternBehaviuor()
+    public void InitializeRandomValues()
+    {
+        _beahaviour = _patternFlyweight.spawnBehaviour;
+        _numberOfProjectiles = Random.Range(_patternFlyweight.minProjectileQuantity, _patternFlyweight.maxProjectileQuantity);
+        _angleModifier = Random.Range(_patternFlyweight.minMultiplier, _patternFlyweight.maxMultiplier);
+        _projectileSpeed = Random.Range(_patternFlyweight.minProjectileSpeed, _patternFlyweight.maxProjectileSpeed);
+        _rotatingAngle = Random.Range(_patternFlyweight.minInitialRotation, _patternFlyweight.maxInitialRotation);
+        _bulletScale = Random.Range(_patternFlyweight.minSize, _patternFlyweight.maxSize);
+        _bulletSpeed = Random.Range(_patternFlyweight.minProjectileSpeed, _patternFlyweight.maxProjectileSpeed);
+
+    }
+
+    public void PatternDrawr()
     {
         int angleStep = 360 / _numberOfProjectiles;
 
-        Vector3 _startPoint = _unitPos.position;
+        Vector3 _startPoint = _transform.position;
+
         _rotatingAngle += _angleModifier;
 
         for (int i = 0; i <= _numberOfProjectiles - 1; i++)
@@ -67,26 +54,21 @@ public class BasePattern : IPattern, IPrototype
             Vector3 projectileMoveDirection = (projectileVector - _startPoint).normalized * _projectileSpeed;
             Vector3 projectileDir = new Vector3(projectileMoveDirection.x, projectileMoveDirection.y, 0);
 
-            var bullet = PoolManager.Instance.hostileBullets.GetObject();
 
-                bullet.SetPosition(_startPoint).
-                       SetScale(_size).
-                       SetSpeed(_projectileSpeed).
-                       SetDirection(projectileDir).
-                       SetColor(Color.red).
-                       SetBehaviour(_bulletBeahaviour);
-                                                                    
+            PoolManager.Instance.hostileBullets.GetObject().SetPosition(_transform.position)
+                                                           .SetDirection(projectileDir)
+                                                           .SetBehaviour(_beahaviour)
+                                                           .SetSpeed(_bulletSpeed)
+                                                           .SetScale(_bulletScale);
+
+
+
             _rotatingAngle -= angleStep;
         }
     }
 
-    public void Pattern()
+    public void PlayPattern()
     {
-        BasePatternBehaviuor();
-    }
-
-    public IPrototype Clone()
-    {
-        return this;
+        PatternDrawr();
     }
 }

@@ -14,6 +14,7 @@ public class AlliedBullet : Bullet
     }
     public override void OnReset()
     {
+
     }
 
     public override void ReturnToPool()

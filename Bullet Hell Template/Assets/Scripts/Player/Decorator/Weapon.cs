@@ -4,9 +4,8 @@ using UnityEngine;
 
 public abstract class Weapon 
 {
-    public string g;
     public abstract void ChangeWeapon(Weapon w);
-    public abstract Bullet Shoot();
+    public abstract void Shoot();
     public virtual Weapon CancelDecorator()
     {
         return this;

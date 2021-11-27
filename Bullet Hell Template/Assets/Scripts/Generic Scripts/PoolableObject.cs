@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class PoolableObject : Prototype
 {
+    public string ID;
     public abstract void OnReset();
     public abstract void ReturnToPool();
     public static void TurnOn(PoolableObject obj)

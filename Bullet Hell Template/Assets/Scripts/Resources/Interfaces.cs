@@ -16,11 +16,11 @@ public interface IAdvance<T> { void Advance();}
 
 public interface IEntity<T> { void TakeDamage(int dmg); void TakeHeal(int heal);}
 public interface IModel<T> { void TakeHeal(T amount); void TakeDamage(T amount); void Die(); }
-public interface IConsumable<P,T> { void OnConsume(P param, T type); }
-public interface IDamagable<T> { void OnDamage(T amount);}
-public interface IHealeable<T> { void OnHeal(T amount);}
+public interface IPickupable<T> { void OnPickUp(T collsionType); IEnumerator Feedback(); }
+public interface IDamagable { void OnDamage(int amount); void OnDeath(); }
+public interface IHealeable { void OnHeal(int amount);}
 public interface IWeapon { void Shoot(Bullet b); void ChangeWeapon(); }
-public interface IPattern { void Pattern();}
+public interface IPattern { void PlayPattern();}
 public interface IPoolable<T> { void TurnOn(T type); void TurnOff(T type); void ReturnToPool(); void OnReset(); }
 public interface IState { void OnEnter(); void OnUpdate(); void OnExit(); }
 

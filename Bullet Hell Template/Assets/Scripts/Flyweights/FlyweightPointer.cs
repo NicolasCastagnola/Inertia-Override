@@ -4,7 +4,8 @@ using UnityEngine;
 
 public static class FlyweightPointer
 {
-    public static readonly Flyweight Player = new Flyweight
+
+    public static readonly EntityFlyweight Player = new EntityFlyweight
     {
         defaultSpeed = 15f,
         maxSpeed = 10f,
@@ -15,7 +16,7 @@ public static class FlyweightPointer
         fireRate = 0.1f
     };
 
-    public static readonly Flyweight Boss = new Flyweight
+    public static readonly EntityFlyweight Boss = new EntityFlyweight
     {
         defaultSpeed = 1f,
         maxSpeed = 10f,
@@ -26,7 +27,7 @@ public static class FlyweightPointer
         fireRate = 0.1f
     };
 
-    public static readonly Flyweight Seeker = new Flyweight
+    public static readonly EntityFlyweight Seeker = new EntityFlyweight
     {
         defaultSpeed = 5f,
         maxSpeed = 10f,
@@ -37,7 +38,7 @@ public static class FlyweightPointer
         fireRate = 1f
     };
 
-    public static readonly Flyweight Bomber = new Flyweight
+    public static readonly EntityFlyweight Bomber = new EntityFlyweight
     {
         defaultSpeed = 2f,
         maxSpeed = 10f,
@@ -47,4 +48,5 @@ public static class FlyweightPointer
         bulletColor = Color.cyan,
         fireRate = 1f
     };
+
 }

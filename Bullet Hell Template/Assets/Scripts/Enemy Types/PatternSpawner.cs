@@ -13,7 +13,7 @@ public abstract class PatternSpawner : MonoBehaviour
     
     public IEnumerator PlayCurrentPattern(IPattern pattern)
     {
-        _currentPattern.Pattern();
+        _currentPattern.PlayPattern();
         
         yield return new WaitForSeconds(patternTimer);
 
