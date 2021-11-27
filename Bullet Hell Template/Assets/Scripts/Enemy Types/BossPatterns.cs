@@ -38,7 +38,7 @@ public class BossPatterns : PatternSpawner
 
     public IPattern RandomizePattern()
     {
-        IPattern pattern = new BasePattern(NonStaticFlyweightPointers.CircleSpiral, transform);
+        IPattern pattern = new BasePattern(NonStaticFlyweightPointers.LinearLockOn, transform);
                                      
         return pattern;
     }

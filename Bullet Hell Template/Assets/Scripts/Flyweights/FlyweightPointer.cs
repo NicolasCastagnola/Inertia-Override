@@ -20,7 +20,7 @@ public static class FlyweightPointer
     {
         defaultSpeed = 1f,
         maxSpeed = 10f,
-        maxHealth = 150,
+        maxHealth = 10000,
         minHealth = 0,
         bulletSpeed = 40f,
         bulletColor = Color.red,
