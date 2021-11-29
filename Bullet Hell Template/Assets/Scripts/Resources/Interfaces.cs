@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 public interface ICommand { void Do(); void Undo();}
 public interface IPrototype { IPrototype Clone(); }
-public interface IObserver<Type> { void Notification(Type action); }
+public interface IObserver<T> { void Notification(T action); }
 public interface IObservable<T> 
 {
     void Subscribe(IObserver<T> obs); 
@@ -20,7 +20,7 @@ public interface IPickupable<T> { void OnPickUp(T collsionType); IEnumerator Fee
 public interface IDamagable { void OnDamage(int amount); void OnDeath(); }
 public interface IHealeable { void OnHeal(int amount);}
 public interface IWeapon { void Shoot(Bullet b); void ChangeWeapon(); }
-public interface IPattern { void PlayPattern();}
+public interface IPattern { void PlayPattern(); }
 public interface IPoolable<T> { void TurnOn(T type); void TurnOff(T type); void ReturnToPool(); void OnReset(); }
 public interface IState { void OnEnter(); void OnUpdate(); void OnExit(); }
 

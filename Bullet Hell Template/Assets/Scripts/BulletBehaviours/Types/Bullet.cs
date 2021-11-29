@@ -26,6 +26,12 @@ public abstract class Bullet : Prototype, IPoolable<Bullet>
         currentBehaviour.Advance();
     }
 
+    protected void OnAwake()
+    {
+        IAdvance<BulletBeahaviour> lockon= new LockOn(transform,_target,_speed);
+        behaviours.Add(lockon) ;
+    }
+
     #region BUILDERS
     public override Prototype Clone()
     {

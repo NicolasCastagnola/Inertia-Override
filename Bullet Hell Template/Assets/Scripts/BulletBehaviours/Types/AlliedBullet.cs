@@ -7,6 +7,7 @@ public class AlliedBullet : Bullet
     private void Awake()
     {
         boundsMaskLayer = LayerMask.NameToLayer("Bounds");
+        OnAwake();
     }
     private void Start()
     {

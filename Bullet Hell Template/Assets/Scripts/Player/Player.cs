@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class Player : AlliedEntity
+public class Player : AlliedEntity, IObservable<PlayerStates>
 {
+    private List<IObserver<PlayerStates>> _allObservers = new List<IObserver<PlayerStates>>();
+
     private PlayerModel _model;
     private PlayerController _controller;
     private PlayerView _view;
@@ -35,6 +37,8 @@ public class Player : AlliedEntity
         _model.OnHeal += _view.PlayHeal;
         _model.OnDeath += _view.PlayDeath;
         _model.OnDeath += Die;
+
+        NotifyToObservers(PlayerStates.Alive);
     }
 
     private void OnEnable()
@@ -77,7 +81,28 @@ public class Player : AlliedEntity
     }
     public void Die()
     {
-        EventManager.TriggerEvent(EventType.SaveData);
+        NotifyToObservers(PlayerStates.Die);
     }
+
+
+    #region Obeserver
+    public void Subscribe(IObserver<PlayerStates> obs)
+    {
+        if (!_allObservers.Contains(obs))
+            _allObservers.Add(obs);
+    }
+
+    public void Unsubscribe(IObserver<PlayerStates> obs)
+    {
+        if (_allObservers.Contains(obs))
+            _allObservers.Remove(obs);
+    }
+
+    public void NotifyToObservers(PlayerStates action)
+    {
+        for (int i = 0; i < _allObservers.Count; i++)
+            _allObservers[i].Notification(action);
+    }
+    #endregion
 
 }

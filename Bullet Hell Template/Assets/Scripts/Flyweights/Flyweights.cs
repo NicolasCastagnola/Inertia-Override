@@ -9,7 +9,6 @@ public class EntityFlyweight
     public float fireRate;
     public float bulletSpeed;
     public Color bulletColor;
-    public MonoBehaviour monoBehaviour;
 }
 
 public class PatternFlyweight

@@ -6,13 +6,11 @@ public class BasePattern : IPattern
 
     private readonly PatternFlyweight _patternFlyweight;
     
-    //Pattern
     private Transform _transform;
     private int _numberOfProjectiles;            
     private float _projectileSpeed;             
     private int _rotatingAngle;
     private int _angleModifier;
-    //Bullet
     private BulletBeahaviour _beahaviour;
     private int _bulletSpeed;
     private int _bulletScale;
@@ -25,7 +23,7 @@ public class BasePattern : IPattern
         InitializeRandomValues();
     }
 
-    public void InitializeRandomValues()
+    void InitializeRandomValues()
     {
         _beahaviour = _patternFlyweight.spawnBehaviour;
         _numberOfProjectiles = Random.Range(_patternFlyweight.minProjectileQuantity, _patternFlyweight.maxProjectileQuantity);
@@ -37,7 +35,7 @@ public class BasePattern : IPattern
 
     }
 
-    public void PatternDrawr()
+    void PatternDrawr()
     {
         int angleStep = 360 / _numberOfProjectiles;
 
@@ -59,7 +57,8 @@ public class BasePattern : IPattern
                                                            .SetDirection(projectileDir)
                                                            .SetBehaviour(_beahaviour)
                                                            .SetSpeed(_bulletSpeed)
-                                                           .SetScale(_bulletScale);
+                                                           .SetScale(_bulletScale)
+                                                           .SetColor(Color.red);
 
 
 
