@@ -1,4 +1,4 @@
-# Unity-Bullet-Hell_Blueprint
+# Unity Bullet Hell Blueprint
 
 - Unity2D Bullet Hell using C# desing patterns and following the solid principles.
 
