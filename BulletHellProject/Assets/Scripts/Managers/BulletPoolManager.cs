@@ -10,15 +10,10 @@ public class BulletPoolManager : MonoBehaviour
     public static BulletPoolManager Instance { get { return _instance; } }
     private static BulletPoolManager _instance;
 
-    public List<Bullet> allBulletsEnabled;
-
     public ObjectPool<AlliedBullet> alliedBullets;
     public ObjectPool<HostileBullet> hostileBullets;
 
     public int initialStock;
-
-    public ObjectPool<Enemy> enemyPool;
-
 
     private void Awake()
     {
@@ -26,12 +21,10 @@ public class BulletPoolManager : MonoBehaviour
 
         else _instance = this;
             
-
         alliedBullets = new ObjectPool<AlliedBullet>(AlliedBulletFactory, alliedbulletPrefab.TurnOn, alliedbulletPrefab.TurnOff, initialStock);
         hostileBullets = new ObjectPool<HostileBullet>(HostileBulletFactory, alliedbulletPrefab.TurnOn, alliedbulletPrefab.TurnOff, initialStock);
 
     }
-
 
     private void OnDisable()
     {

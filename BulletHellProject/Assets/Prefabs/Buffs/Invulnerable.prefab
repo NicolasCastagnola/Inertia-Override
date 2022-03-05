@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: Invulnerable
+  speedTowardsPlayer: 4
   timer: 10
   audioSource: {fileID: 3263393865777860885}
 --- !u!82 &3263393865777860885

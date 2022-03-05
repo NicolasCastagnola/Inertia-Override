@@ -10,4 +10,10 @@ public static class FlyweightPointer
         bulletSpeed = 40f,
         bulletColor = Color.green,
     };
+
+    public static readonly BulletFlyweight Boss = new BulletFlyweight
+    {
+        bulletSpeed = 10f,
+        bulletColor = Color.red,
+    };
 }

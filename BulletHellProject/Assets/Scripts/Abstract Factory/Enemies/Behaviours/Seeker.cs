@@ -10,10 +10,10 @@ public class Seeker : Enemy
 
     private void Start()
     {
-        currentAdvance = new TargetAdvance(transform, target, defaultSpeed);
+        currentAdvance = new TargetSinuosAdvance(transform, target, 8, 0.1f);
         SetBehaviour(currentAdvance);
     }
-    private void OnEnable()
+    private void Awake()
     {
         InitializeEntity(animator, minHealth, maxHealth, maxSpeed, defaultSpeed);
     }
@@ -27,7 +27,7 @@ public class Seeker : Enemy
     }
     public override void Die()
     {
-        if (dropableBuff != null) BringGameObjectToMyPosition(dropableBuff.gameObject);
+        if (dropableBuff != null) Instantiate(dropableBuff, transform);
         HostileEntitiesManager.Instance.RemoveEntityFromGlobalList(this);
         TerminateEntity();
     }
@@ -48,11 +48,11 @@ public class Seeker : Enemy
 
     public override void OnSpawn()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Spawn");
     }
 
     public override void TerminateEntity()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Die");
     }
 }

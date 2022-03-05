@@ -19,6 +19,29 @@ public class TargetAdvance : IAdvance<EnemiesBehaviours>
         _transform.position += (_target.position - _transform.position).normalized * _speed * Time.deltaTime;
     }
 }
+
+public class TargetSinuosAdvance : IAdvance<EnemiesBehaviours>
+{
+    Transform _transform, _target;
+    float _frequency;
+    float _amplitude;
+
+    public TargetSinuosAdvance(Transform transform, Transform target, float frequency, float amplitude)
+    {
+        _transform = transform;
+        _target = target;
+        _frequency = frequency;
+        _amplitude = amplitude;
+    }
+
+    public void Advance()
+    {
+        _transform.position = _transform.position + _transform.up * Mathf.Sin(Time.time * _frequency) * _amplitude;
+        _transform.position = Vector3.MoveTowards(_transform.position, _target.transform.position, 0.1f);
+    }
+}
+
+
 #region Boss Behaviours
 public class RandomAdvanceInsideColliderBounds : IAdvance<EnemiesBehaviours>
 {
@@ -51,6 +74,7 @@ public class RandomAdvanceInsideColliderBounds : IAdvance<EnemiesBehaviours>
     {
         Vector3 bounds = _collider.size / 2f;
         Vector3 point = new Vector3(Random.Range(-bounds.x, bounds.x), Random.Range(-bounds.y, bounds.y), 0f);
+
         return _collider.transform.TransformPoint(point);
     }
 }

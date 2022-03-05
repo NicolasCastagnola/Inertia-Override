@@ -5,7 +5,15 @@ public class BulletFlyweight
     public float bulletSpeed;
     public Color bulletColor;
 }
-
+public class ConvoyFlyweight
+{
+    public string PatternID;
+    public string EnemyTypeID;
+    public EnemiesBehaviours unitBeheviorType;
+    public float spawnTickRate;
+    public int minQuantity;
+    public int maxQuantity;
+}
 public class PatternFlyweight 
 {
     public BulletBeahaviour spawnBehaviour;

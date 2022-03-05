@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [CreateAssetMenu(menuName = "Buff Configuration")]
 public class BuffSetter : ScriptableObject
 {

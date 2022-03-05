@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class BuffFactory 
+public class BuffFactory
 {
     [SerializeField] private BuffSetter _buffSetter;
 

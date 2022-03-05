@@ -11,7 +11,7 @@ public class LocalizationManager : MonoBehaviour
 
     public Language selectedLanguage;
 
-    private string externalURL = "https://drive.google.com/uc?export=download&id=1r3YbnCIRmtxjyqGkGpSOvgpswX4gBQ99";
+    private string externalURL = "https://drive.google.com/uc?export=download&id=1Pq0D4MSdNIjpiQ-dXMPntkA32q6jazTk";
 
     public Dictionary<Language, Dictionary<string, string>> languageContainer = new Dictionary<Language, Dictionary<string, string>>();
 
@@ -27,10 +27,6 @@ public class LocalizationManager : MonoBehaviour
         DontDestroyOnLoad(this);
 
         StartCoroutine(DownloadCSV(externalURL));
-    }
-
-    private void Start()
-    {
     }
 
     public void ChangeLanguage(Language language)

@@ -11,7 +11,7 @@ public class Sentinel : Enemy
         currentAdvance = new TargetAdvance(transform, target, defaultSpeed);
         SetBehaviour(currentAdvance);
     }
-    private void OnEnable()
+    private void Awake()
     {
         InitializeEntity(animator, minHealth, maxHealth, maxSpeed, defaultSpeed);
     }
@@ -45,11 +45,11 @@ public class Sentinel : Enemy
 
     public override void TerminateEntity()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Die");
     }
 
     public override void OnSpawn()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Spawn");
     }
 }

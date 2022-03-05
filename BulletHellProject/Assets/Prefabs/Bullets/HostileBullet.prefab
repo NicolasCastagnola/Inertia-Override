@@ -115,6 +115,7 @@ MonoBehaviour:
   damageToUnits: 1
   direction: 0
   _rigidbody: {fileID: 0}
+  _target: {fileID: 0}
 --- !u!54 &9018541958370775429
 Rigidbody:
   m_ObjectHideFlags: 0

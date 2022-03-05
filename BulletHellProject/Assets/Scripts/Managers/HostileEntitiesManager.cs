@@ -29,6 +29,10 @@ public class HostileEntitiesManager : MonoBehaviour, IObserver<PlayerStates>
     }
     private bool _stopFactory;
 
+    private const int CONVOY_MIN = 4;
+    private const int CONVOY_MAX = 8;
+
+    #region Init
     private void Awake()
     {
         if (_instance != null && _instance != this) Destroy(gameObject);
@@ -49,19 +53,24 @@ public class HostileEntitiesManager : MonoBehaviour, IObserver<PlayerStates>
         StartCoroutine(SpawnEnemyWhenIsTime());
     }
 
+    #endregion
+    public int RandomConvoyPatrolQuantity()
+    {
+        return Random.Range(CONVOY_MIN, CONVOY_MAX);
+    }
     public IEnumerator SpawnEnemyWhenIsTime()
     {
-        yield return new WaitForSeconds(Random.Range(0, 5));
-
         while (!_stopFactory)
         {
-            var e = GetRandomEnemyWithIDList().SetTarget(GetRandomTransformFromList(goalPoints)).SetPosition(GetRandomTransformFromList(spawnPoints));
+            for (int i = 0; i < RandomConvoyPatrolQuantity() ; i++)
+            {
+                var e = GetRandomEnemyWithIDList().SetTarget(GetRandomTransformFromList(goalPoints)).SetPosition(GetRandomTransformFromList(spawnPoints));
+                if (shouldInsertBuff) e.SetBuffToDrop(requiredBuff);
+                enemiesInScene.Add(e);
+                yield return new WaitForSeconds(0.2f);
+            }
 
-            if (shouldInsertBuff) e.SetBuffToDrop(requiredBuff);
-     
-            enemiesInScene.Add(e);
-            
-            yield return new WaitForSeconds(Random.Range(0, 5));
+            yield return new WaitForSeconds(5f);
         }
     }
 
@@ -106,10 +115,11 @@ public class HostileEntitiesManager : MonoBehaviour, IObserver<PlayerStates>
             case PlayerStates.Alive:
                 break;
             case PlayerStates.Die:
+                _stopFactory = true;
                 break;
             case PlayerStates.NeedHeal:
                 shouldInsertBuff = true;
-                requiredBuff = BuffManager.Instance.GetBuff("Heal");
+                requiredBuff = BuffFactoryManager.Instance.GetBuff("Heal");
                 break;
             case PlayerStates.NeedEnhancement:
                 break;

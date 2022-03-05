@@ -6,12 +6,12 @@ public abstract class Enemy : HostileEntity, IRewindable
     [SerializeField] private Image[] lives;
     protected int UnitHealth { get { return _enemyController.UnitHealth; } }
 
-    private EnemyModel _enemyModel;
-    private EnemyController _enemyController;
-    private EnemyView _enemyView;
+    protected EnemyModel _enemyModel;
+    protected EnemyController _enemyController;
+    protected EnemyView _enemyView;
 
     protected Buff dropableBuff;
-    private int counter = 3;
+    protected int counter = 3;
     protected MementoState memento;
 
     protected virtual void InitializeEntity(Animator animator, int minHealth, int maxHealth, float maxSpeed, float defaultSpeed, bool isBoss = false)
@@ -38,9 +38,9 @@ public abstract class Enemy : HostileEntity, IRewindable
         _enemyModel.OnDeath += OnDeath;
     }
     protected virtual void OnUpdate() { _enemyController.OnUpdate();}
-    public override void TakeDamage(int dmg) { GameManager.Instance.AddScore(pointsForDamagingThisUnit); _enemyController.OnDamage(dmg);  }
+    public override void TakeDamage(int dmg) { GameManager.Instance.AddScore(pointsForDamagingThisUnit); _enemyController.OnDamage(dmg); }
     public override void TakeHeal(int heal) { _enemyController.OnHeal(heal); }
-    protected virtual void OnDeath() { GameManager.Instance.AddScore(pointsForKillingThisUnit); _enemyView.PlayDeath(); Die();  }
+    protected virtual void OnDeath() { GameManager.Instance.AddScore(pointsForKillingThisUnit); _enemyView.PlayDeath(); Die(); }
     protected virtual void BringGameObjectToMyPosition(GameObject gameObject)
     {
         gameObject.transform.position = transform.position;

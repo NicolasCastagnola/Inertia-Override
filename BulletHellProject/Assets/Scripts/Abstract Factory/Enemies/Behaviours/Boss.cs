@@ -80,6 +80,8 @@ public class Boss : Enemy
 
     public override void TerminateEntity()
     {
+        AudioManager.Instance.bossSounds[1].Play();
+
         gameObject.SetActive(false);
     }
 

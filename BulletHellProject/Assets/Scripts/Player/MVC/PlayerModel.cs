@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerModel : BaseEntityModel 
@@ -12,6 +14,7 @@ public class PlayerModel : BaseEntityModel
     public List<Weapon> _weapons;
     private int currentSelectedWeaponIndex;
     private Weapon currentSelectedWeapon;
+    MonoBehaviour _behaviourWorkAround;
 
     private List<Transform> _transforms;
 
@@ -23,7 +26,7 @@ public class PlayerModel : BaseEntityModel
     public event Action OnShoot;
     public event Action OnRewind;
 
-    public PlayerModel(int minxHealth, int maxHealth, float fireRate, float defaultSpeed, Transform transform, bool canShoot, bool isDead, BulletPoolManager spawner, List<Transform> transforms , List<Weapon> weapons)
+    public PlayerModel(int minxHealth, int maxHealth, float fireRate, float defaultSpeed, Transform transform, bool canShoot, bool isDead, BulletPoolManager spawner, List<Transform> transforms , List<Weapon> weapons, MonoBehaviour behaviourWorkAround)
     {
         _minLife = minxHealth;
         _maxLife = maxHealth;
@@ -34,9 +37,11 @@ public class PlayerModel : BaseEntityModel
         _transforms = transforms;
         _isDead = isDead;
         _canShoot = canShoot;
+        _behaviourWorkAround = behaviourWorkAround;
 
         SetSpeed(defaultSpeed);
         SetHealth(_maxLife);
+
     }
     public override void Die()
     {
@@ -57,8 +62,6 @@ public class PlayerModel : BaseEntityModel
     }
     public override void TakeDamage(int amount)
     {
-        Debug.Log(_currentHealth);
-        
         if (!IsDead)
         {
             if (!_isInvulnerable)
@@ -95,6 +98,30 @@ public class PlayerModel : BaseEntityModel
         _transform.position = Camera.main.ScreenToWorldPoint(mousePos);
 
     }
+
+    #region WebGL Work Around
+
+    public void ShootWebGL()
+    {
+        if (_canShoot)
+        {
+            currentSelectedWeapon.Shoot();
+            OnShoot?.Invoke();
+            _behaviourWorkAround.StartCoroutine(ShootWait());
+        }
+    }
+
+    IEnumerator ShootWait()
+    {
+        _canShoot = false;
+
+        yield return new WaitForSeconds(_fireRate);
+
+        _canShoot = true;
+    }
+
+    #endregion
+
     public async void Shoot()
     {
         if (_canShoot)
@@ -108,7 +135,7 @@ public class PlayerModel : BaseEntityModel
     }
     public void ChangeWeapon(Weapon w)
     {
-        
+        currentSelectedWeapon = w;
     }
     public void SetHealth(int amount)
     {

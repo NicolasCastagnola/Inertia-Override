@@ -15,6 +15,7 @@ public class GameFacade : MonoBehaviour
     public void OnPlayerVictory()
     {
         gameManager.EvaluteNewHighscore();
+        player.canRecieveDamage = false;
         uIManager.ShowVictoryScreen();
         ClearScene();
     }
@@ -56,7 +57,7 @@ public class GameFacade : MonoBehaviour
     public void LoadData()
     {
         Debug.Log("Loading Data...");
-        uIManager.highscorePoints.text = PlayerPrefs.GetInt("highscore").ToString("000000000000"); 
+        uIManager.highscorePoints.text = PlayerPrefs.GetInt("highscore").ToString("0000000000000000"); 
     }
 
     public void SaveData()

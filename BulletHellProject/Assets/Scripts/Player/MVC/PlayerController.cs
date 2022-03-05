@@ -33,9 +33,10 @@ public class PlayerController : BaseEntityController<int>
         {
             _model.SetUltra();
         }
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.J))
         {
-            _model.Shoot();
+            //_model.Shoot();
+            _model.ShootWebGL();
         }
     }
     public override void OnUpdate()

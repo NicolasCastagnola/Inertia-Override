@@ -14,16 +14,36 @@ public class HealBuff : Buff
     {
         var e = other.GetComponent<IEntity<AlliedEntity>>();
 
-        if (e != null) e.TakeHeal(_healAmount);
+        if (e != null)
+        {
+            e.TakeHeal(_healAmount); 
+            ReturnToPool();
+        }
     }
-    public void Update()
+    public override void OnReset()
     {
-        MoveTowardDirection(Vector3.down * Time.deltaTime);
+        Debug.Log("Heal");
     }
 
-    public override void OnReturnToPool()
+    public override void ReturnToPool()
     {
-        throw new System.NotImplementedException();
+        BuffPoolManager.Instance.healPool.ReturnObject(this);
+    }
+
+    public override void TurnOff(Buff type)
+    {
+        type.gameObject.SetActive(false);
+    }
+
+    public override void TurnOn(Buff type)
+    {
+        type.OnReset();
+        type.gameObject.SetActive(true);
+    }
+
+    public void Update()
+    {
+        MoveTowardDirection(Vector3.down * Time.deltaTime * speedTowardsPlayer);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1119367802969565086}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8917186, y: 0.62592596, z: 0}
+  m_LocalPosition: {x: -1.957261, y: -3.0207908, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: Heal
-  speedTowardsPlayer: 0
+  speedTowardsPlayer: 2.5
   _healAmount: 1
 --- !u!212 &4947078485954833111
 SpriteRenderer:

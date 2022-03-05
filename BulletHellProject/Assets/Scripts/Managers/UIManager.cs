@@ -70,7 +70,6 @@ public class UIManager : MonoBehaviour
     }
     public void LoadFromCheckpoint()
     {
-
         StopAllCoroutines();
 
         Fade(deathPanel, 0.4f, false);
@@ -80,7 +79,7 @@ public class UIManager : MonoBehaviour
 
     public void RefreshCurrentPoints(int value)
     {
-        currentPoints.text = value.ToString("000000000000");
+        currentPoints.text = value.ToString("0000000000000000");
     }
 }
 

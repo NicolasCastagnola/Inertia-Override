@@ -9,9 +9,12 @@ public class TextLanguageUpdater : MonoBehaviour
 
     private void Start()
     {
-        LocalizationManager.Instance.OnUpdate += OnLanguageChanged;
+        if (LocalizationManager.Instance) LocalizationManager.Instance.OnUpdate += OnLanguageChanged;
     }
-    
+    private void OnDestroy()
+    {
+        if (LocalizationManager.Instance) LocalizationManager.Instance.OnUpdate -= OnLanguageChanged;
+    }
     private void OnEnable()
     {
         if (LocalizationManager.Instance != null) OnLanguageChanged();

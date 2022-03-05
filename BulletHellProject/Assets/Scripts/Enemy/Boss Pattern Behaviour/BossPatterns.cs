@@ -16,6 +16,8 @@ public class BossPatterns : PatternSpawner
 
     [SerializeField] private float randomizePatternValuesTimer;
     [SerializeField] private float timerBetweenSpawns;
+
+    private bool shouldInsertBuff = true; 
     public void InitializePatterns()
     {
         //flyweightPointers.Add(NonStaticFlyweightPointers.LinearHoming);

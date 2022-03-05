@@ -15,9 +15,10 @@ public class Player : AlliedEntity, IObservable<PlayerStates>, IUntargatable
 
     public List<Transform> spawnPoints;
     public List<Weapon> weapons;
-    public List<IWeapon> weapon2s;
 
     public Image[] lives;
+
+    public bool canRecieveDamage = true;
 
     #region Obeserver
     public void Subscribe(IObserver<PlayerStates> obs)
@@ -50,10 +51,6 @@ public class Player : AlliedEntity, IObservable<PlayerStates>, IUntargatable
 
         EventManager.TriggerEvent(EventType.OnGameInitialization);
     }
-    private void OnDisable()
-    {
-        
-    }
     private void Start()
     {
         _controller.OnStart();
@@ -64,7 +61,10 @@ public class Player : AlliedEntity, IObservable<PlayerStates>, IUntargatable
     }
     public override void TakeDamage(int amount)
     {
-        _controller.OnDamage(amount);
+        if (canRecieveDamage)
+        {
+            _controller.OnDamage(amount);
+        }
 
         if (_controller.GetCurrentHealth == 1) NotifyToObservers(PlayerStates.NeedHeal);
     }
@@ -75,14 +75,21 @@ public class Player : AlliedEntity, IObservable<PlayerStates>, IUntargatable
     public override void TakeHeal(int amount) 
     {
         _controller.OnHeal(amount);
+
+        NotifyToObservers(PlayerStates.PlayerHealed);
+
+        AudioManager.Instance.playerSounds[3].Play();
     }
     public void MakeUntargateble(float timer)
     {
         _controller.MakeInvinsible(timer);
 
+        AudioManager.Instance.playerSounds[2].Play();
     }
     public override void TerminateEntity()
     {
+        AudioManager.Instance.playerSounds[1].Play();
+
         EventManager.TriggerEvent(EventType.Deafeat);
 
         gameObject.SetActive(false);
@@ -97,8 +104,9 @@ public class Player : AlliedEntity, IObservable<PlayerStates>, IUntargatable
     public override void InizializeEntity()
     {
         gameObject.SetActive(true);
+        canRecieveDamage = true;
 
-        _model = new PlayerModel(minHealth, maxHealth, fireRate, defaultSpeed, transform, CanShoot, IsDead, spawner, spawnPoints, weapons);
+        _model = new PlayerModel(minHealth, maxHealth, fireRate, defaultSpeed, transform, CanShoot, IsDead, spawner, spawnPoints, weapons, this);
         _controller = new PlayerController(_model);
         _view = new PlayerView(_animator, lives);
 

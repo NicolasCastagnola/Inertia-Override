@@ -34,7 +34,6 @@ public class BasePattern : IPattern
         _rotatingAngle = Random.Range(_patternFlyweight.minInitialRotation, _patternFlyweight.maxInitialRotation);
         _bulletScale = Random.Range(_patternFlyweight.minSize, _patternFlyweight.maxSize);
         _bulletSpeed = Random.Range(_patternFlyweight.minProjectileSpeed, _patternFlyweight.maxProjectileSpeed);
-
     }
 
     void PatternDrawr()
@@ -44,6 +43,8 @@ public class BasePattern : IPattern
         Vector3 _startPoint = _transform.position;
 
         _rotatingAngle += _angleModifier;
+
+        AudioManager.Instance.bossSounds[0].Play();
 
         for (int i = 0; i <= _numberOfProjectiles - 1; i++)
         {
@@ -56,14 +57,12 @@ public class BasePattern : IPattern
 
 
             BulletPoolManager.Instance.hostileBullets.GetObject().SetPosition(_transform.position)
-                                                           .SetDirection(projectileDir)
-                                                           .SetTarget(_target)
-                                                           .SetBehaviour(_beahaviour)
-                                                           .SetSpeed(_bulletSpeed)
-                                                           .SetScale(_bulletScale)
-                                                           .SetColor(Color.red);
-
-
+                                                                 .SetDirection(projectileDir)
+                                                                 .SetTarget(_target)
+                                                                 .SetBehaviour(_beahaviour)
+                                                                 .SetSpeed(_bulletSpeed)
+                                                                 .SetScale(_bulletScale)
+                                                                 .SetColor(FlyweightPointer.Boss.bulletColor);
 
             _rotatingAngle -= angleStep;
         }
