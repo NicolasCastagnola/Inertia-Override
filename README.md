@@ -1,6 +1,6 @@
 # Unity Bullet Hell Blueprint
 
-- Unity2D Bullet Hell using C# desing patterns and following the solid principles.
+Unity2D Bullet Hell using C# desing patterns and following the solid principles.
 
 ## Structural Patterns:
 - Composite
